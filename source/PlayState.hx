@@ -56,8 +56,10 @@ import DialogueBoxPsych;
 import sys.FileSystem;
 #end
 
+
 #if mobileC
 import ui.Mobilecontrols;
+import ui.FlxVirtualPad;
 #end
 
 using StringTools;
@@ -249,6 +251,7 @@ class PlayState extends MusicBeatState
 
 	#if mobileC
 	var mcontrols:Mobilecontrols; 
+	var _vpad:FlxVirtualPad;
 	#end	
 
 	//Achievement shit
@@ -1042,8 +1045,16 @@ class PlayState extends MusicBeatState
 			{
 				case VIRTUALPAD_RIGHT | VIRTUALPAD_LEFT | VIRTUALPAD_CUSTOM:
 					controls.setVirtualPadNOTES(mcontrols._virtualPad, FULL, NONE);
+					_vpad = new FlxVirtualPad(NONE,  A);
+					_vpad.alpha = 0.75;
+					_vpad.cameras = [camHUD];
+					this.add(_vpad);
 				case HITBOX:
 					controls.setHitBoxNOTES(mcontrols._hitbox);
+					_vpad = new FlxVirtualPad(NONE,  A);
+					_vpad.alpha = 0.75;
+					_vpad.cameras = [camHUD];
+					this.add(_vpad);
 				default:
 			}
 			trackedinputsNOTES = controls.trackedinputsNOTES;
